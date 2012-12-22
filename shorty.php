@@ -40,7 +40,8 @@ class shorty{
     	$cxt = array();
 		$cxt['http'] = array  
 		(  
-			'method' => 'POST',  
+			'method' => 'POST',
+            'header' => "Content-type: application/x-www-form-urlencoded\r\n",
 			'content' => http_build_query(array('url'=>$url)),
 		);
 		$return = json_decode(file_get_contents(self::$rddmeapi, false, stream_context_create($cxt)));
@@ -49,7 +50,7 @@ class shorty{
     }
     
     public static function metamark($url){
-        $return = file_get_contents(self::$metamarkapi.'?long_url='.urlencode($url));
+        $return = file_get_contents(self::$metamarkapi.'?long_url='.$url);
         if(strpos($return, 'ERROR:') === 0) throw new Exception(self::$error.$return);
         else return $return;
     }
