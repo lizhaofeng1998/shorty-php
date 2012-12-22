@@ -66,5 +66,14 @@ class ShortyTest extends PHPUnit_Framework_TestCase
         $expected = 'http%s';
         $this->assertStringMatchesFormat($expected, $return);
     }
+    
+    public function testshortr()
+    {
+        echo "Now shortening https://github.com/lizhaofeng1998/shorty-php with shortr.info\n";
+        $return = shorty::shortr('https://github.com/lizhaofeng1998/shorty-php');
+        echo 'We got '.$return."\n";
+        $expected = 'http%s';
+        $this->assertStringMatchesFormat($expected, $return);
+    }
 }
 ?>

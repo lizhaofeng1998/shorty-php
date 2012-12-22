@@ -13,6 +13,7 @@ Shorty-php is a library for PHP to help developers shorten URLs easier. Shorty-p
 * to.ly(`shorty::toly`)
 * rewd.co(`shorty::rewd`)
 * safe.mn(`shorty::safemn`)
+* shortr.info(`shorty::shortr`)
 
 Using shorty-php
 ----------

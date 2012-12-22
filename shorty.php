@@ -1,6 +1,6 @@
 <?php
 /*
-    shorty-php - A faster way to shorten your URLs in PHP
+	shorty-php - A faster way to shorten your URLs in PHP
 	Copyright (C) 2012  Zhaofeng Li (lizhaofeng1998)
 
 	This program is free software: you can redistribute it and/or modify
@@ -18,57 +18,66 @@
 */
 
 class shorty{
-    private static $vgdapi = 'http://v.gd/create.php';
-    private static $isgdapi = 'http://is.gd/create.php';
-    private static $rddmeapi = 'http://www.readability.com/api/shortener/v1/urls';
-    private static $metamarkapi = 'http://metamark.net/api/rest/simple';
-    private static $tolyapi = 'http://to.ly/api.php';
-    private static $rewdapi = 'http://rewd.co/api.php';
-    private static $safemnapi = 'http://safe.mn/api/shorten';
-    
-    private static $error = 'Error encountered while shortening URL: ';
-    
-    private static function shortgd($url, $api){
-        $return = file_get_contents($api.'?format=simple&url='.urlencode($url));
-        if(strpos($return, 'http') === 0) return $return; //Success
-        else throw new Exception(self::$error.$return); //Fail
-    }
-    public static function vgd($url){return self::shortgd($url, self::$vgdapi);}
-    public static function isgd($url){return self::shortgd($url, self::$isgdapi);}
-    
-    public static function rddme($url){
-    	$cxt = array();
+	private static $vgdapi = 'http://v.gd/create.php';
+	private static $isgdapi = 'http://is.gd/create.php';
+	private static $rddmeapi = 'http://www.readability.com/api/shortener/v1/urls';
+	private static $metamarkapi = 'http://metamark.net/api/rest/simple';
+	private static $tolyapi = 'http://to.ly/api.php';
+	private static $rewdapi = 'http://rewd.co/api.php';
+	private static $safemnapi = 'http://safe.mn/api/shorten';
+	private static $shortrapi = 'http://shortr.info/make-shortr.php';
+	
+	private static $error = 'Error encountered while shortening URL: ';
+	
+	private static function shortgd($url, $api){
+		$return = file_get_contents($api.'?format=simple&url='.urlencode($url));
+		if(strpos($return, 'http') === 0) return $return; //Success
+		else throw new Exception(self::$error.$return); //Fail
+	}
+	public static function vgd($url){return self::shortgd($url, self::$vgdapi);}
+	public static function isgd($url){return self::shortgd($url, self::$isgdapi);}
+	
+	public static function rddme($url){
+		$cxt = array();
 		$cxt['http'] = array  
 		(  
 			'method' => 'POST',
-            'header' => "Content-type: application/x-www-form-urlencoded\r\n",
+			'header' => "Content-type: application/x-www-form-urlencoded\r\n",
 			'content' => http_build_query(array('url'=>$url)),
 		);
 		$return = json_decode(file_get_contents(self::$rddmeapi, false, stream_context_create($cxt)));
-        if($return->success) return $return->meta->rdd_url;
+		if($return->success) return $return->meta->rdd_url;
 		else throw new Exception(self::$error.'Unknown error');
-    }
-    
-    public static function metamark($url){
-        $return = file_get_contents(self::$metamarkapi.'?long_url='.$url);
-        if(strpos($return, 'ERROR:') === 0) throw new Exception(self::$error.$return);
-        else return $return;
-    }
-    
-    public static function toly($url){
-        $return = file_get_contents(self::$tolyapi.'?longurl='.urlencode($url));
-        if(strpos($return, 'http') === 0) return $return;
-        else throw new Exception(self::$error.$return);
-    }
-    
-    public static function rewd($url){
-        $return = file_get_contents(self::$rewdapi.'?url='.urlencode($url));
-        return $return;
-    }
-    
-    public static function safemn($url){
-        $return = json_decode(file_get_contents(self::$safemnapi.'?format=json&url='.urlencode($url)));
-        if(isset($return->error)) throw new Exception(self::$error.$return->error);
-        else return $return->url;
-    }
+	}
+	
+	public static function metamark($url){
+		$return = file_get_contents(self::$metamarkapi.'?long_url='.$url);
+		if(strpos($return, 'ERROR:') === 0) throw new Exception(self::$error.$return);
+		else return $return;
+	}
+	
+	public static function toly($url){
+		$return = file_get_contents(self::$tolyapi.'?longurl='.urlencode($url));
+		if(strpos($return, 'http') === 0) return $return;
+		else throw new Exception(self::$error.$return);
+	}
+	
+	public static function rewd($url){
+		$return = file_get_contents(self::$rewdapi.'?url='.urlencode($url));
+		return $return;
+	}
+	
+	public static function safemn($url){
+		$return = json_decode(file_get_contents(self::$safemnapi.'?format=json&url='.urlencode($url)));
+		if(isset($return->error)) throw new Exception(self::$error.$return->error);
+		else return $return->url;
+	}
+	
+	public static function shortr($url){
+		$return = json_decode(file_get_contents(self::$shortrapi.'?format=json&url='.urlencode($url)));
+        if(isset($return->shortr->result->error)){
+            throw new Exception(self::$error.$return->shortr->result->error);
+        }
+        else return $return->shortr->result->created;
+	}
 }
