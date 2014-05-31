@@ -75,9 +75,9 @@ class shorty{
 	
 	public static function shortr($url){
 		$return = json_decode(file_get_contents(self::$shortrapi.'?format=json&url='.urlencode($url)));
-        if(isset($return->shortr->result->error)){
-            throw new Exception(self::$error.$return->shortr->result->error);
-        }
-        else return $return->shortr->result->created;
+		if(isset($return->shortr->result->error)){
+			throw new Exception(self::$error.$return->shortr->result->error);
+		}
+		else return $return->shortr->result->created;
 	}
 }
