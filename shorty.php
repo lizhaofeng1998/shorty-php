@@ -23,9 +23,7 @@ class shorty{
 	private static $rddmeapi = 'http://www.readability.com/api/shortener/v1/urls';
 	private static $metamarkapi = 'http://metamark.net/api/rest/simple';
 	private static $tolyapi = 'http://to.ly/api.php';
-	private static $rewdapi = 'http://rewd.co/api.php';
 	private static $safemnapi = 'http://safe.mn/api/shorten';
-	private static $shortrapi = 'http://shortr.info/make-shortr.php';
 	
 	private static $error = 'Error encountered while shortening URL: ';
 	
@@ -62,9 +60,10 @@ class shorty{
 		else throw new Exception(self::$error.$return);
 	}
 	
+	// WARNING: Rewd is dead!
 	public static function rewd($url){
-		$return = file_get_contents(self::$rewdapi.'?url='.urlencode($url));
-		return $return;
+		throw new Exception(self::$error."Shortr.info is dead and therefore this function is deprecated.");
+		return "http://deprecated.rewd-is-dead.tld";
 	}
 	
 	public static function safemn($url){
@@ -73,11 +72,9 @@ class shorty{
 		else return $return->url;
 	}
 	
+	// WARNING: Shortr is dead!
 	public static function shortr($url){
-		$return = json_decode(file_get_contents(self::$shortrapi.'?format=json&url='.urlencode($url)));
-		if(isset($return->shortr->result->error)){
-			throw new Exception(self::$error.$return->shortr->result->error);
-		}
-		else return $return->shortr->result->created;
+		throw new Exception(self::$error."Shortr.info is dead and therefore this function is deprecated.");
+		return "http://deprecated.shortr-is-dead.tld";
 	}
 }
