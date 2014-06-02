@@ -62,7 +62,7 @@ class shorty{
 	
 	// WARNING: Rewd is dead!
 	public static function rewd($url){
-		throw new Exception(self::$error."Shortr.info is dead and therefore this function is deprecated.");
+		throw new Exception(self::$error."Rewd.co is dead and therefore this function is deprecated.");
 		return "http://deprecated.rewd-is-dead.tld";
 	}
 	
