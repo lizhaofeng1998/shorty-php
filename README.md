@@ -11,9 +11,9 @@ Shorty-php is a library for PHP to help developers shorten URLs easier. Shorty-p
 * rdd.me(`shorty::rddme`)
 * metamark.net(`shorty::metamark`)
 * to.ly(`shorty::toly`)
-* rewd.co(`shorty::rewd`)
 * safe.mn(`shorty::safemn`)
-* shortr.info(`shorty::shortr`)
+Note that rewd.co(`shorty::rewd`) and shortr.info(`shorty::shortr`) have been removed because they are dead. Now both methods 
+will throw an exception.
 
 Using shorty-php
 ----------
