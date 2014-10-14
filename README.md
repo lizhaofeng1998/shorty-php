@@ -1,4 +1,4 @@
-shorty-php [![Build Status](https://travis-ci.org/lizhaofeng1998/shorty-php.png)](https://travis-ci.org/lizhaofeng1998/shorty-php)
+shorty-php [![Build Status](https://travis-ci.org/zhaofengli/shorty-php.png)](https://travis-ci.org/zhaofengli/shorty-php)
 ==========
 
 A faster way to shorten your URLs.
